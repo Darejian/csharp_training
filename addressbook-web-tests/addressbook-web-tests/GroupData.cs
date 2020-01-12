@@ -12,37 +12,19 @@
 
         public string Name
         {
-            get
-            {
-                return name;
-            }
-            set 
-            {
-                name = value;            
-            }
+            get => name;
+            set => name = value;
         }
         public string Header
         {
-            get 
-            {
-                return header;
-            }
-            set 
-            {
-                header = value;
-            }
+            get => header;
+            set => header = value;
         }
 
         public string Footer
         {
-            get
-            {
-                return footer;
-            }
-            set
-            {
-                footer = value;
-            }
+            get => footer;
+            set => footer = value;
         }
     }
 }

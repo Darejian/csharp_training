@@ -9,14 +9,12 @@ namespace WebAddressbookTests
     public class GroupCreationTests
     {
         private IWebDriver driver;
-        public IDictionary<string, object> vars { get; private set; }
         private IJavaScriptExecutor js;
         [SetUp]
         public void SetUp()
         {
             driver = new ChromeDriver();
             js = (IJavaScriptExecutor)driver;
-            vars = new Dictionary<string, object>();
         }
         [TearDown]
         protected void TearDown()
@@ -24,6 +22,8 @@ namespace WebAddressbookTests
             driver.Quit();
         }
         [Test]
+
+
         public void GroupCreationTest()
         {
             OpenHomePage();
@@ -41,7 +41,7 @@ namespace WebAddressbookTests
 
         private void Logout()
         {
-            driver.FindElement(By.LinkText("Logout")).Click();
+            driver.FindElement(By.XPath("//a[@onclick='document.logout.submit();']")).Click();
         }
 
         private void ReturnToGroupsPage()
@@ -71,7 +71,7 @@ namespace WebAddressbookTests
 
         private void GoToGroupsPage()
         {
-            driver.FindElement(By.LinkText("groups")).Click();
+            driver.FindElement(By.XPath("//a[@href='group.php']")).Click();
         }
 
         private void Login(AccountData account)
