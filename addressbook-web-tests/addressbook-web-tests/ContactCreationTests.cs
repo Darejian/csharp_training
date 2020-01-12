@@ -54,7 +54,8 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("lastname")).SendKeys(contact.LastName);
             driver.FindElement(By.Name("nickname")).SendKeys(contact.Nickname);
             string fileName = "testAvatar.png";
-            string path = Path.Combine(Environment.CurrentDirectory, @"TestImages\", fileName);
+            string workingDirectory = Directory.GetParent(TestContext.CurrentContext.TestDirectory).Parent.FullName;
+            string path = Path.Combine(workingDirectory, @"TestImages\", fileName);
             driver.FindElement(By.Name("photo")).SendKeys(path);
             driver.FindElement(By.Name("title")).SendKeys(contact.Title);
             driver.FindElement(By.Name("company")).SendKeys(contact.Company);
