@@ -37,6 +37,14 @@ namespace WebAddressbookTests
             Logout();
         }
 
+        private void CleanUpCopiedFile(string path)
+        {
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+        }
+
         private void Logout()
         {
             driver.FindElement(By.XPath("//a[@onclick='document.logout.submit();']")).Click();
@@ -53,10 +61,15 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("middlename")).SendKeys(contact.MiddleName);
             driver.FindElement(By.Name("lastname")).SendKeys(contact.LastName);
             driver.FindElement(By.Name("nickname")).SendKeys(contact.Nickname);
+ 
             string fileName = "testAvatar.png";
             string workingDirectory = Directory.GetParent(TestContext.CurrentContext.TestDirectory).Parent.FullName;
-            string path = Path.Combine(workingDirectory, @"TestImages\", fileName);
-            driver.FindElement(By.Name("photo")).SendKeys(path);
+            string destPath = AppDomain.CurrentDomain.BaseDirectory;
+            destPath = Directory.GetParent(destPath).Parent.FullName;
+            destPath = Path.Combine(destPath, fileName);
+            string sourcePath = Path.Combine(workingDirectory, @"TestImages\", fileName);
+            File.Copy(sourcePath, destPath);
+            driver.FindElement(By.Name("photo")).SendKeys(destPath);
             driver.FindElement(By.Name("title")).SendKeys(contact.Title);
             driver.FindElement(By.Name("company")).SendKeys(contact.Company);
             driver.FindElement(By.Name("address")).SendKeys(contact.Address);
