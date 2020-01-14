@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using NUnit.Framework;
+using System.IO;
+using System;
 
 namespace WebAddressbookTests
 {
@@ -10,20 +11,19 @@ namespace WebAddressbookTests
     public class ContactCreationTests
     {
         private IWebDriver driver;
-        public IDictionary<string, object> vars { get; private set; }
-        private IJavaScriptExecutor js;
+
         [SetUp]
         public void SetUp()
         {
             driver = new ChromeDriver();
-            js = (IJavaScriptExecutor)driver;
-            vars = new Dictionary<string, object>();
         }
+
         [TearDown]
         protected void TearDown()
         {
             driver.Quit();
         }
+
         [Test]
         public void createContact()
         {
@@ -40,7 +40,7 @@ namespace WebAddressbookTests
 
         private void Logout()
         {
-            driver.FindElement(By.LinkText("Logout")).Click();
+            driver.FindElement(By.XPath("//a[@onclick='document.logout.submit();']")).Click();
         }
 
         private void SubmitContactCreation()
@@ -54,7 +54,9 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("middlename")).SendKeys(contact.MiddleName);
             driver.FindElement(By.Name("lastname")).SendKeys(contact.LastName);
             driver.FindElement(By.Name("nickname")).SendKeys(contact.Nickname);
-           //driver.FindElement(By.Name("photo")).SendKeys("E:\\Pictures\\dif\\1330588482_1270126938_3.jpg");
+ 
+            string fileName = "testAvatar.png";
+            driver.FindElement(By.Name("photo")).SendKeys(Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestImages\", fileName));
             driver.FindElement(By.Name("title")).SendKeys(contact.Title);
             driver.FindElement(By.Name("company")).SendKeys(contact.Company);
             driver.FindElement(By.Name("address")).SendKeys(contact.Address);
@@ -74,17 +76,9 @@ namespace WebAddressbookTests
         private void SelectBirthday (ContactData contact)
         {
             driver.FindElement(By.Name("bday")).Click();
-            {
-                var dropdown = driver.FindElement(By.Name("bday"));
-                dropdown.FindElement(By.XPath($"//select[@name='bday']/option[@value='{contact.BirthDay}']")).Click();
-            }
-            driver.FindElement(By.Name("bday")).Click();
+            driver.FindElement(By.XPath($"//select[@name='bday']/option[@value='{contact.BirthDay}']")).Click();
             driver.FindElement(By.Name("bmonth")).Click();
-            {
-                var dropdown = driver.FindElement(By.Name("bmonth"));
-                dropdown.FindElement(By.XPath($"//select[@name='bmonth']/option[@value='{contact.BirthMonth}']")).Click();
-            }
-            driver.FindElement(By.Name("bmonth")).Click();
+            driver.FindElement(By.XPath($"//select[@name='bmonth']/option[@value='{contact.BirthMonth}']")).Click();
             driver.FindElement(By.Name("byear")).Click();
             driver.FindElement(By.Name("byear")).SendKeys(contact.BirthYear);
         }
@@ -92,26 +86,16 @@ namespace WebAddressbookTests
         private void SelectAnniversaryDate(ContactData contact)
         {
             driver.FindElement(By.Name("aday")).Click();
-            {
-                var dropdown = driver.FindElement(By.Name("aday"));
-                dropdown.FindElement(By.XPath($"//select[@name='aday']/option[@value='{contact.AnniversaryDay}']")).Click();
-            }
-            driver.FindElement(By.Name("aday")).Click();
-            driver.FindElement(By.Name("aday")).SendKeys(contact.AnniversaryDay);
+            driver.FindElement(By.XPath($"//select[@name='aday']/option[@value='{contact.AnniversaryDay}']")).Click();
             driver.FindElement(By.Name("amonth")).Click();
-            {
-                var dropdown = driver.FindElement(By.Name("amonth"));
-                dropdown.FindElement(By.XPath($"//select[@name='amonth']/option[@value='{contact.AnniversaryMonth}']")).Click();
-            }
-            driver.FindElement(By.Name("amonth")).Click();
-            driver.FindElement(By.Name("amonth")).SendKeys(contact.AnniversaryMonth);
+            driver.FindElement(By.XPath($"//select[@name='amonth']/option[@value='{contact.AnniversaryMonth}']")).Click();
             driver.FindElement(By.Name("ayear")).Click();
             driver.FindElement(By.Name("ayear")).SendKeys(contact.AnniversaryYear);
         }
 
         private void InitContactCreation()
         {
-            driver.FindElement(By.LinkText("add new")).Click();
+            driver.FindElement(By.XPath("//a[@href='edit.php']")).Click();
         }
 
         private void Login()
