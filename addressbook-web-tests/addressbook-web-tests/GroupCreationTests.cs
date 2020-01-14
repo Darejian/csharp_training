@@ -9,12 +9,10 @@ namespace WebAddressbookTests
     public class GroupCreationTests
     {
         private IWebDriver driver;
-        private IJavaScriptExecutor js;
         [SetUp]
         public void SetUp()
         {
             driver = new ChromeDriver();
-            js = (IJavaScriptExecutor)driver;
         }
         [TearDown]
         protected void TearDown()

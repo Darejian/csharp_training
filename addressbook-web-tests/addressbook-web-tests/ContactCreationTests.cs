@@ -11,18 +11,19 @@ namespace WebAddressbookTests
     public class ContactCreationTests
     {
         private IWebDriver driver;
-        private IJavaScriptExecutor js;
+
         [SetUp]
         public void SetUp()
         {
             driver = new ChromeDriver();
-            js = (IJavaScriptExecutor)driver;
         }
+
         [TearDown]
         protected void TearDown()
         {
             driver.Quit();
         }
+
         [Test]
         public void createContact()
         {
@@ -35,14 +36,6 @@ namespace WebAddressbookTests
             SelectAnniversaryDate(defaultContact);
             SubmitContactCreation();
             Logout();
-        }
-
-        private void CleanUpCopiedFile(string path)
-        {
-            if (File.Exists(path))
-            {
-                File.Delete(path);
-            }
         }
 
         private void Logout()
@@ -63,13 +56,7 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("nickname")).SendKeys(contact.Nickname);
  
             string fileName = "testAvatar.png";
-            string workingDirectory = Directory.GetParent(TestContext.CurrentContext.TestDirectory).Parent.FullName;
-            string destPath = AppDomain.CurrentDomain.BaseDirectory;
-            destPath = Directory.GetParent(destPath).Parent.FullName;
-            destPath = Path.Combine(destPath, fileName);
-            string sourcePath = Path.Combine(workingDirectory, @"TestImages\", fileName);
-            File.Copy(sourcePath, destPath);
-            driver.FindElement(By.Name("photo")).SendKeys(destPath);
+            driver.FindElement(By.Name("photo")).SendKeys(Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestImages\", fileName));
             driver.FindElement(By.Name("title")).SendKeys(contact.Title);
             driver.FindElement(By.Name("company")).SendKeys(contact.Company);
             driver.FindElement(By.Name("address")).SendKeys(contact.Address);
