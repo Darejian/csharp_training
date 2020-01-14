@@ -9,19 +9,20 @@ namespace WebAddressbookTests
     public class GroupCreationTests
     {
         private IWebDriver driver;
+
         [SetUp]
         public void SetUp()
         {
             driver = new ChromeDriver();
         }
+
         [TearDown]
         protected void TearDown()
         {
             driver.Quit();
         }
+
         [Test]
-
-
         public void GroupCreationTest()
         {
             OpenHomePage();
