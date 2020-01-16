@@ -2,7 +2,6 @@
 using OpenQA.Selenium.Chrome;
 using NUnit.Framework;
 using System.IO;
-using System;
 
 namespace WebAddressbookTests
 {
@@ -56,7 +55,10 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("nickname")).SendKeys(contact.Nickname);
  
             string fileName = "testAvatar.png";
-            driver.FindElement(By.Name("photo")).SendKeys(Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestImages\", fileName));
+            string dirName = @"TestImages\";
+            string pathToFile = Path.Combine(TestContext.CurrentContext.TestDirectory, dirName, fileName);
+            driver.FindElement(By.Name("photo")).SendKeys(pathToFile);
+
             driver.FindElement(By.Name("title")).SendKeys(contact.Title);
             driver.FindElement(By.Name("company")).SendKeys(contact.Company);
             driver.FindElement(By.Name("address")).SendKeys(contact.Address);
