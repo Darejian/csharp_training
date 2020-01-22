@@ -6,15 +6,15 @@ namespace WebAddressbookTests
     {
     
         private string baseUrl;
-        public NavigationHelper(IWebDriver driver, string baseUrl) : base(driver)
+        public NavigationHelper(ApplicationManager manager, string baseUrl) : base(manager)
         {
             this.baseUrl = baseUrl;
         }
 
-        public void GoToHomePage(string baseUrl)
+        public void GoToHomePage()
         {
             driver.Manage().Window.Maximize();
-            driver.Navigate().GoToUrl(baseUrl);
+            driver.Navigate().GoToUrl(this.baseUrl);
         }
 
         public void GoToGroupsPage()
