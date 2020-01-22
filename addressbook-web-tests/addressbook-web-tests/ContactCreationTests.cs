@@ -9,15 +9,15 @@ namespace WebAddressbookTests
         [Test]
         public void createContact()
         {
-            OpenHomePage();
-            Login(new AccountData("admin", "secret"));
-            InitContactCreation();
+            navigator.GoToHomePage("http://localhost/addressbook/");
+            loginHelper.Login(new AccountData("admin", "secret"));
+            contactHelper.InitContactCreation();
             ContactData defaultContact = new ContactData();
-            FillContactForm(defaultContact);
-            SelectBirthday(defaultContact);
-            SelectAnniversaryDate(defaultContact);
-            SubmitContactCreation();
-            Logout();
+            contactHelper.FillContactForm(defaultContact);
+            contactHelper.SelectBirthday(defaultContact);
+            contactHelper.SelectAnniversaryDate(defaultContact);
+            contactHelper.SubmitContactCreation();
+            loginHelper.Logout();
         }
     }
 }
