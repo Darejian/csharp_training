@@ -13,6 +13,14 @@ namespace WebAddressbookTests
             driver.FindElement(By.XPath("//a[@href='edit.php']")).Click();
         }
 
+        public void Create(ContactData defaultContact)
+        {
+            FillContactForm(defaultContact);
+            SelectBirthday(defaultContact);
+            SelectAnniversaryDate(defaultContact);
+            SubmitContactCreation();
+        }
+
         public void FillContactForm(ContactData contact)
         {
             driver.FindElement(By.Name("firstname")).SendKeys(contact.FirstName);

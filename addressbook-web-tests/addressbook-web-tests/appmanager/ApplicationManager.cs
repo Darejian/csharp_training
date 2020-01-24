@@ -22,16 +22,19 @@ namespace WebAddressbookTests
             contactHelper = new ContactHelper(this);
         }
 
-        public LoginHelper Auth { get { return loginHelper; } }
+        public LoginHelper Auth => loginHelper; 
 
-        public NavigationHelper Navigator { get { return navigator; } }
+        public NavigationHelper Navigator => navigator; 
 
-        public GroupHelper Group { get { return groupHelper; } }
+        public GroupHelper Group => groupHelper; 
 
-        public ContactHelper Contact { get { return contactHelper; } }
+        public ContactHelper Contact => contactHelper;
 
-        public IWebDriver Driver { get { return driver; } }
+        public IWebDriver Driver => driver;
 
-        public void Stop() { driver.Quit(); }
+        public void Stop()
+        {
+            driver.Quit();
+        }
     }
 }

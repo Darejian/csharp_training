@@ -11,10 +11,7 @@ namespace WebAddressbookTests
         {
             app.Contact.InitContactCreation();
             ContactData defaultContact = new ContactData();
-            app.Contact.FillContactForm(defaultContact);
-            app.Contact.SelectBirthday(defaultContact);
-            app.Contact.SelectAnniversaryDate(defaultContact);
-            app.Contact.SubmitContactCreation();
+            app.Contact.Create(defaultContact);
         }
     }
 }
