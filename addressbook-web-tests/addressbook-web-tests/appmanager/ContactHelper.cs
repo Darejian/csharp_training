@@ -21,6 +21,19 @@ namespace WebAddressbookTests
             SubmitContactCreation();
         }
 
+        public void Remove(string index)
+        {
+            SelectContact(index);
+            SubmitContactRemoval();
+            ConfirmRemovealPopUp();
+        }
+
+        public ContactHelper SelectContact(string index)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            return this;
+        }
+
         public void FillContactForm(ContactData contact)
         {
             driver.FindElement(By.Name("firstname")).SendKeys(contact.FirstName);
@@ -72,6 +85,17 @@ namespace WebAddressbookTests
         public void SubmitContactCreation()
         {
             driver.FindElement(By.CssSelector("input[type='submit']~input[type='submit']")).Click();
+        }
+
+        public ContactHelper SubmitContactRemoval()
+        {
+            driver.FindElement(By.CssSelector("input[type='button'][value='Delete']")).Click();
+            return this;
+        }
+        public ContactHelper ConfirmRemovealPopUp()
+        {
+            driver.SwitchTo().Alert().Accept();
+            return this;
         }
     }
 }
