@@ -23,12 +23,20 @@ namespace WebAddressbookTests
 
         public void Remove(string index)
         {
-            SelectContact(index);
+            Select(index);
             SubmitContactRemoval();
             ConfirmRemovealPopUp();
         }
 
-        public ContactHelper SelectContact(string index)
+        public void Modify(ContactData modifiedContact)
+        {
+            manager.Navigator.GoToHomePage();
+            InitTopContactModification();
+            FillContactForm(modifiedContact);
+            SubmitContactModification();
+        }
+
+        public ContactHelper Select(string index)
         {
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
             return this;
@@ -36,30 +44,30 @@ namespace WebAddressbookTests
 
         public void FillContactForm(ContactData contact)
         {
-            driver.FindElement(By.Name("firstname")).SendKeys(contact.FirstName);
-            driver.FindElement(By.Name("middlename")).SendKeys(contact.MiddleName);
-            driver.FindElement(By.Name("lastname")).SendKeys(contact.LastName);
-            driver.FindElement(By.Name("nickname")).SendKeys(contact.Nickname);
-
+            ClearAndFillTextField("firstname", contact.FirstName);
+            ClearAndFillTextField("middlename", contact.MiddleName);
+            ClearAndFillTextField("lastname", contact.LastName);
+            ClearAndFillTextField("nickname", contact.Nickname);
+            
             string fileName = "testAvatar.png";
             string dirName = @"TestImages\";
             string pathToFile = Path.Combine(TestContext.CurrentContext.TestDirectory, dirName, fileName);
-            driver.FindElement(By.Name("photo")).SendKeys(pathToFile);
+            ClearAndFillTextField("photo", pathToFile);
 
-            driver.FindElement(By.Name("title")).SendKeys(contact.Title);
-            driver.FindElement(By.Name("company")).SendKeys(contact.Company);
-            driver.FindElement(By.Name("address")).SendKeys(contact.Address);
-            driver.FindElement(By.Name("home")).SendKeys(contact.PhoneHome);
-            driver.FindElement(By.Name("mobile")).SendKeys(contact.PhoneMobile);
-            driver.FindElement(By.Name("work")).SendKeys(contact.PhoneWork);
-            driver.FindElement(By.Name("fax")).SendKeys(contact.PhoneFax);
-            driver.FindElement(By.Name("email")).SendKeys(contact.Email1);
-            driver.FindElement(By.Name("email2")).SendKeys(contact.Email2);
-            driver.FindElement(By.Name("email3")).SendKeys(contact.Email3);
-            driver.FindElement(By.Name("homepage")).SendKeys(contact.Homepage);
-            driver.FindElement(By.Name("address2")).SendKeys(contact.SecondaryAddress);
-            driver.FindElement(By.Name("phone2")).SendKeys(contact.SecondaryHome);
-            driver.FindElement(By.Name("notes")).SendKeys(contact.SecondaryNotes);
+            ClearAndFillTextField("title", contact.Title);
+            ClearAndFillTextField("company", contact.Company);
+            ClearAndFillTextField("address", contact.Address);
+            ClearAndFillTextField("home", contact.PhoneHome);
+            ClearAndFillTextField("mobile", contact.PhoneMobile);
+            ClearAndFillTextField("work", contact.PhoneWork);
+            ClearAndFillTextField("fax", contact.PhoneFax);
+            ClearAndFillTextField("email", contact.Email1);
+            ClearAndFillTextField("email2", contact.Email2);
+            ClearAndFillTextField("email3", contact.Email3);
+            ClearAndFillTextField("homepage", contact.Homepage);
+            ClearAndFillTextField("address2", contact.SecondaryAddress);
+            ClearAndFillTextField("phone2", contact.SecondaryHome);
+            ClearAndFillTextField("notes", contact.SecondaryNotes);
         }
 
         public void SelectBirthday(ContactData contact)
@@ -92,9 +100,31 @@ namespace WebAddressbookTests
             driver.FindElement(By.CssSelector("input[type='button'][value='Delete']")).Click();
             return this;
         }
+
+        public ContactHelper SubmitContactModification()
+        {
+            driver.FindElement(By.CssSelector("input[type='submit'][value='Update']")).Click();
+            return this;
+        }
+
         public ContactHelper ConfirmRemovealPopUp()
         {
             driver.SwitchTo().Alert().Accept();
+            return this;
+        }
+
+        public ContactHelper InitTopContactModification()
+        {
+            driver.FindElement
+                (By.CssSelector("tr:nth-child(2) > .center:nth-child(8) a")) //locate the top contact in the table
+                .Click();
+            return this;
+        }
+
+        public ContactHelper ClearAndFillTextField(string fieldName, string newValue)
+        {
+            driver.FindElement(By.Name(fieldName)).Clear();
+            driver.FindElement(By.Name(fieldName)).SendKeys(newValue);
             return this;
         }
     }

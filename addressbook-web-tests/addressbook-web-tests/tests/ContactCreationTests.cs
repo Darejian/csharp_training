@@ -2,7 +2,6 @@
 
 namespace WebAddressbookTests 
 {
-
     [TestFixture]
     public class ContactCreationTests : TestBase
     {
