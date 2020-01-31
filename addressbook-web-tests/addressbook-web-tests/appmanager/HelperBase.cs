@@ -11,5 +11,11 @@ namespace WebAddressbookTests
             this.manager = manager;
             driver = manager.Driver;
         }
+
+        public void ClearAndFillTextField(string fieldName, string newValue)
+        {
+            driver.FindElement(By.Name(fieldName)).Clear();
+            driver.FindElement(By.Name(fieldName)).SendKeys(newValue);
+        }
     }
 }

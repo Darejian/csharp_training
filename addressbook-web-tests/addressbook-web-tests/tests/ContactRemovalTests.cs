@@ -8,8 +8,8 @@ namespace WebAddressbookTests
         [Test]
         public void ContactRemovalTest()
         {
-            app.Navigator.GoToHomePage();
-            app.Contact.Remove("1");
+            string contactIndex = "1";
+            app.Contact.Remove(contactIndex);
         }
     }
 }

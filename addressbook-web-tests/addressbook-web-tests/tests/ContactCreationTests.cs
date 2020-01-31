@@ -6,9 +6,8 @@ namespace WebAddressbookTests
     public class ContactCreationTests : TestBase
     {
         [Test]
-        public void CreateContact()
+        public void CreateContactTest()
         {
-            app.Contact.InitContactCreation();
             ContactData defaultContact = new ContactData();
             app.Contact.Create(defaultContact);
         }

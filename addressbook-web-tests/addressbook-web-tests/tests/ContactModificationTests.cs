@@ -8,10 +8,9 @@ namespace WebAddressbookTests
         [Test]
         public void ContactModifyAllFields()
         {
-            ContactData modifiedContact = new ContactData();
-            modifiedContact.FirstName = "New First Name";
-            modifiedContact.LastName = "New Last Name";
-            app.Contact.Modify(modifiedContact);
+            string contactId = "44";
+            ContactData modifiedContact = app.Contact.NewContactData();
+            app.Contact.Modify(contactId, modifiedContact);
         }
     }
 }

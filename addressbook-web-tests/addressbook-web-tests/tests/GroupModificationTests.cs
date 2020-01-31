@@ -8,11 +8,13 @@ namespace WebAddressbookTests
         [Test]
         public void GroupModificationTest()
         {
-            GroupData newData = new GroupData("zzz");
+            string groupId = "1";
+            GroupData newData = new GroupData();
+            newData.Name = "zzz";
             newData.Header = "ttt";
             newData.Footer = "qqq";    
 
-            app.Group.Modify(1, newData);
+            app.Group.Modify(groupId, newData);
         }
     }
 }

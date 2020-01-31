@@ -8,10 +8,7 @@ namespace WebAddressbookTests
         [Test]
         public void GroupCreationTest()
         {
-            GroupData group = new GroupData("aaa");
-            group.Header = "ddd";
-            group.Footer = "fff";
-
+            GroupData group = new GroupData();
             app.Group.Create(group);
             app.Navigator.ReturnToGroupsPage();
         }
@@ -19,7 +16,8 @@ namespace WebAddressbookTests
         [Test]
         public void EmptyGroupCreationTest()
         {
-            GroupData group = new GroupData("");
+            GroupData group = new GroupData();
+            group.Name = "";
             group.Header = "";
             group.Footer = "";
 

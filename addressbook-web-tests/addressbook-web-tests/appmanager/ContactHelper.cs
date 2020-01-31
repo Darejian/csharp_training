@@ -15,23 +15,23 @@ namespace WebAddressbookTests
 
         public void Create(ContactData defaultContact)
         {
+            InitContactCreation();
             FillContactForm(defaultContact);
-            SelectBirthday(defaultContact);
-            SelectAnniversaryDate(defaultContact);
             SubmitContactCreation();
         }
 
         public void Remove(string index)
         {
+            manager.Navigator.GoToHomePage();
             Select(index);
             SubmitContactRemoval();
             ConfirmRemovealPopUp();
         }
 
-        public void Modify(ContactData modifiedContact)
+        public void Modify(string contactId, ContactData modifiedContact)
         {
             manager.Navigator.GoToHomePage();
-            InitTopContactModification();
+            InitContactModification(contactId);
             FillContactForm(modifiedContact);
             SubmitContactModification();
         }
@@ -65,6 +65,10 @@ namespace WebAddressbookTests
             ClearAndFillTextField("email2", contact.Email2);
             ClearAndFillTextField("email3", contact.Email3);
             ClearAndFillTextField("homepage", contact.Homepage);
+
+            SelectBirthday(contact);
+            SelectAnniversaryDate(contact);
+
             ClearAndFillTextField("address2", contact.SecondaryAddress);
             ClearAndFillTextField("phone2", contact.SecondaryHome);
             ClearAndFillTextField("notes", contact.SecondaryNotes);
@@ -113,19 +117,57 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper InitTopContactModification()
+        public ContactHelper InitContactModification(string contactId)
         {
-            driver.FindElement
-                (By.CssSelector("tr:nth-child(2) > .center:nth-child(8) a")) //locate the top contact in the table
-                .Click();
+            try
+            {
+                driver.FindElement
+                    (By.CssSelector("tr[name='entry']>td[class='center']>a[href='edit.php?id=" + contactId + "']"))
+                    .Click();
+            }
+            catch (NoSuchElementException)
+            { //if contact with specified ID is not found, then the top contact in the table will be modified
+                driver.FindElement
+                    (By.CssSelector("tr:nth-child(2) > .center:nth-child(8) a"))
+                    .Click();
+            }
+
             return this;
         }
 
-        public ContactHelper ClearAndFillTextField(string fieldName, string newValue)
+        public ContactData NewContactData()
         {
-            driver.FindElement(By.Name(fieldName)).Clear();
-            driver.FindElement(By.Name(fieldName)).SendKeys(newValue);
-            return this;
+            //this class needs to be transfromed to generator of new random data, e.g. using Bogus
+            string modifier = "NEW";
+            ContactData contact = new ContactData();
+            contact.FirstName += modifier;
+            contact.MiddleName += modifier;
+            contact.LastName += modifier;
+            contact.Nickname += modifier;
+            contact.PhotoPath += modifier;
+            contact.Title += modifier;
+            contact.Company += modifier;
+            contact.Address += modifier;
+            contact.PhoneHome += modifier;
+            contact.PhoneMobile += modifier;
+            contact.PhoneWork += modifier;
+            contact.PhoneFax += modifier;
+            contact.Email1 += modifier;
+            contact.Email2 += modifier;
+            contact.Email3 += modifier;
+            contact.Homepage += modifier;
+            contact.BirthDay = "20";
+            contact.BirthMonth = "December";
+            contact.BirthYear = "1999";
+            contact.AnniversaryDay = "7";
+            contact.AnniversaryMonth = "july";
+            contact.AnniversaryYear = "2022";
+            contact.Group += modifier;
+            contact.SecondaryAddress += modifier;
+            contact.SecondaryHome += modifier;
+            contact.SecondaryNotes += modifier;
+
+            return contact;
         }
     }
 }
