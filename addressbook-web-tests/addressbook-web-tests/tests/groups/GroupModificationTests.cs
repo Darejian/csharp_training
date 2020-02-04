@@ -9,13 +9,8 @@ namespace WebAddressbookTests
         public void GroupModificationTest()
         {
             string groupId = "1";
-            GroupData newData = new GroupData();
-
-            newData.Name = "zzz";
-            newData.Header = "ttt";
-            newData.Footer = "qqq";    
-
-            app.Group.Modify(groupId, newData);
+            var newGroupDataModel = new GroupFixtureBuilder().Build();      
+            app.Group.Modify(groupId, newGroupDataModel);
         }
     }
 }

@@ -4,7 +4,8 @@ namespace WebAddressbookTests
 {
     public class GroupFixtureBuilder
     {
-        private readonly GroupData groupModel; 
+        private readonly GroupData groupModel;
+        
         public GroupFixtureBuilder()
         {
             this.groupModel = CreateDefaultModel();
@@ -14,6 +15,7 @@ namespace WebAddressbookTests
             this.groupModel.Name = name;
             return this;
         }
+
         public GroupFixtureBuilder WithHeader(string header)
         {
             this.groupModel.Header = header;
@@ -30,6 +32,7 @@ namespace WebAddressbookTests
         {
             return this.groupModel;
         }
+
         private GroupData CreateDefaultModel()
         {
             var model = new Faker<GroupData>()

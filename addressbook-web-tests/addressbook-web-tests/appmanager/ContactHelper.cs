@@ -1,6 +1,4 @@
-﻿using NUnit.Framework;
-using OpenQA.Selenium;
-using System.IO;
+﻿using OpenQA.Selenium;
 
 namespace WebAddressbookTests
 {
@@ -48,12 +46,7 @@ namespace WebAddressbookTests
             ClearAndFillTextField("middlename", contact.MiddleName);
             ClearAndFillTextField("lastname", contact.LastName);
             ClearAndFillTextField("nickname", contact.Nickname);
-            
-            string fileName = "testAvatar.png";
-            string dirName = @"TestImages\";
-            string pathToFile = Path.Combine(TestContext.CurrentContext.TestDirectory, dirName, fileName);
-            ClearAndFillTextField("photo", pathToFile);
-
+            ClearAndFillTextField("photo", contact.PhotoPath);
             ClearAndFillTextField("title", contact.Title);
             ClearAndFillTextField("company", contact.Company);
             ClearAndFillTextField("address", contact.Address);
@@ -89,7 +82,7 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("aday")).Click();
             driver.FindElement(By.XPath($"//select[@name='aday']/option[@value='{contact.AnniversaryDay}']")).Click();
             driver.FindElement(By.Name("amonth")).Click();
-            driver.FindElement(By.XPath($"//select[@name='amonth']/option[@value='{contact.AnniversaryMonth}']")).Click();
+            driver.FindElement(By.XPath($"//select[@name='amonth']/option[contains(.,'{contact.AnniversaryMonth}')]")).Click();
             driver.FindElement(By.Name("ayear")).Click();
             driver.FindElement(By.Name("ayear")).SendKeys(contact.AnniversaryYear);
         }
@@ -126,41 +119,6 @@ namespace WebAddressbookTests
                     .Click();
 
             return this;
-        }
-
-        public ContactData NewContactData()
-        {
-            //this class needs to be transfromed to generator of new random data, e.g. using Bogus
-            string modifier = "NEW";
-            ContactData contact = new ContactData();
-            contact.FirstName += modifier;
-            contact.MiddleName += modifier;
-            contact.LastName += modifier;
-            contact.Nickname += modifier;
-            contact.PhotoPath += modifier;
-            contact.Title += modifier;
-            contact.Company += modifier;
-            contact.Address += modifier;
-            contact.PhoneHome += modifier;
-            contact.PhoneMobile += modifier;
-            contact.PhoneWork += modifier;
-            contact.PhoneFax += modifier;
-            contact.Email1 += modifier;
-            contact.Email2 += modifier;
-            contact.Email3 += modifier;
-            contact.Homepage += modifier;
-            contact.BirthDay = "20";
-            contact.BirthMonth = "December";
-            contact.BirthYear = "1999";
-            contact.AnniversaryDay = "7";
-            contact.AnniversaryMonth = "july";
-            contact.AnniversaryYear = "2022";
-            contact.Group += modifier;
-            contact.SecondaryAddress += modifier;
-            contact.SecondaryHome += modifier;
-            contact.SecondaryNotes += modifier;
-
-            return contact;
         }
     }
 }

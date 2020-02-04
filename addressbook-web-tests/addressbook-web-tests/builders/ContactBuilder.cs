@@ -10,12 +10,6 @@
             this.contactFixtureBuilder = new ContactFixtureBuilder();
             this.manager = manager;
         }
-        public ContactBuilder WithFistName(string name)
-        {
-            this.contactFixtureBuilder.WithFirstName(name);
-            return this;
-        }
-
 
         public ContactBuilder WithFirstName(string firstName)
         {
@@ -42,9 +36,10 @@
 
         public ContactBuilder WithPhotoPath(string photoPath)
         {
-            this.contactFixtureBuilder.WithPhotoPath(photoPath);
+            this.contactFixtureBuilder.WithPhotoName(photoPath);
             return this;
         }
+
         public ContactBuilder WithTitle(string title)
         {
             this.contactFixtureBuilder.WithTitle(title);
@@ -74,6 +69,7 @@
             this.contactFixtureBuilder.WithPhoneMobile(phoneMobile);
             return this;
         }
+
         public ContactBuilder WithPhoneWork(string phoneWork)
         {
             this.contactFixtureBuilder.WithPhoneWork(phoneWork);

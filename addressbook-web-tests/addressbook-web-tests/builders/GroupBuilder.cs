@@ -10,16 +10,19 @@
             this.groupFixtureBuilder = new GroupFixtureBuilder();
             this.manager = manager;
         }
+
         public GroupBuilder WithName(string name)
         {
             this.groupFixtureBuilder.WithName(name);
             return this;
         }
+
         public GroupBuilder WithHeader(string header)
         {
             this.groupFixtureBuilder.WithHeader(header);
             return this;
         }
+
         public GroupBuilder WithFooter(string footer)
         {
             this.groupFixtureBuilder.WithFooter(footer);

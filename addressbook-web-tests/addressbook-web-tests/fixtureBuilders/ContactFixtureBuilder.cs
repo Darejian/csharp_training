@@ -1,19 +1,24 @@
 ﻿using Bogus;
+using NUnit.Framework;
+using System.IO;
 
 namespace WebAddressbookTests
 {
     public class ContactFixtureBuilder
     {
         private readonly ContactData contactModel;
+
         public ContactFixtureBuilder()
         {
             this.contactModel = CreateDefaultModel();
         }
+
         public ContactFixtureBuilder WithFirstName(string firstName)
         {
             this.contactModel.FirstName = firstName;
             return this;
         }
+
         public ContactFixtureBuilder WithMiddleName(string middleName)
         {
             this.contactModel.MiddleName = middleName;
@@ -32,11 +37,15 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactFixtureBuilder WithPhotoPath(string photoPath)
+        public ContactFixtureBuilder WithPhotoName(string photoName)
         {
-            this.contactModel.PhotoPath = photoPath;
+            string dirName = @"TestImages\";
+            string pathToFile = Path.Combine(TestContext.CurrentContext.TestDirectory, dirName, photoName);
+
+            this.contactModel.PhotoPath = pathToFile;
             return this;
         }
+
         public ContactFixtureBuilder WithTitle(string title)
         {
             this.contactModel.Title = title;
@@ -166,14 +175,19 @@ namespace WebAddressbookTests
         {
             return this.contactModel;
         }
+
         private ContactData CreateDefaultModel()
         {
+            string fileName = "testAvatar.png";
+            string dirName = @"TestImages\";
+            string pathToFile = Path.Combine(TestContext.CurrentContext.TestDirectory, dirName, fileName);
+
             var model = new Faker<ContactData>()
                 .RuleFor(o => o.FirstName, f => f.Person.FirstName)
                 .RuleFor(o => o.MiddleName, f => f.Person.LastName)
                 .RuleFor(o => o.LastName, f => f.Person.LastName)
                 .RuleFor(o => o.Nickname, f => f.Person.UserName)
-                .RuleFor(o => o.PhotoPath, f => f.Image.LoremFlickrUrl())
+                .RuleFor(o => o.PhotoPath, f => pathToFile)
                 .RuleFor(o => o.Title, f => f.Name.JobTitle())
                 .RuleFor(o => o.Company, f => f.Company.CompanyName())
                 .RuleFor(o => o.Address, f => f.Address.StreetAddress())

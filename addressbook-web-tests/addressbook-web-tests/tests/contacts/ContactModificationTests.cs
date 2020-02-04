@@ -9,8 +9,8 @@ namespace WebAddressbookTests
         public void ContactModifyAllFields()
         {
             int contactIndex = 1;
-            ContactData modifiedContact = app.Contact.NewContactData();
-            app.Contact.Modify(contactIndex, modifiedContact);
+            var newContactDataModel = new ContactFixtureBuilder().Build();
+            app.Contact.Modify(contactIndex, newContactDataModel);
         }
     }
 }
