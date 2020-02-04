@@ -10,6 +10,7 @@ namespace WebAddressbookTests
         {
             string groupId = "1";
             GroupData newData = new GroupData();
+
             newData.Name = "zzz";
             newData.Header = "ttt";
             newData.Footer = "qqq";    

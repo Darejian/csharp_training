@@ -8,20 +8,18 @@ namespace WebAddressbookTests
         [Test]
         public void GroupCreationTest()
         {
-            GroupData group = new GroupData();
-            app.Group.Create(group);
+            app.GroupBuilder.Build(); 
             app.Navigator.ReturnToGroupsPage();
         }
 
         [Test]
         public void EmptyGroupCreationTest()
         {
-            GroupData group = new GroupData();
-            group.Name = "";
-            group.Header = "";
-            group.Footer = "";
-
-            app.Group.Create(group);
+            app.GroupBuilder
+                .WithName("")
+                .WithHeader("")
+                .WithFooter("")
+                .Build();
             app.Navigator.ReturnToGroupsPage();
         }
     }

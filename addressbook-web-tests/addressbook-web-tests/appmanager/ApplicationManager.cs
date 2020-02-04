@@ -11,6 +11,8 @@ namespace WebAddressbookTests
         protected NavigationHelper navigator;
         protected GroupHelper groupHelper;
         protected ContactHelper contactHelper;
+        protected GroupBuilder groupBuilder;
+        protected ContactBuilder contactBuilder;
 
         public ApplicationManager()
         {
@@ -20,6 +22,8 @@ namespace WebAddressbookTests
             navigator = new NavigationHelper(this, baseUrl);
             groupHelper = new GroupHelper(this);
             contactHelper = new ContactHelper(this);
+            groupBuilder = new GroupBuilder(this);
+            contactBuilder = new ContactBuilder(this);
         }
 
         public LoginHelper Auth => loginHelper; 
@@ -29,6 +33,10 @@ namespace WebAddressbookTests
         public GroupHelper Group => groupHelper; 
 
         public ContactHelper Contact => contactHelper;
+
+        public GroupBuilder GroupBuilder => groupBuilder;
+
+        public ContactBuilder ContactBuilder => contactBuilder;
 
         public IWebDriver Driver => driver;
 

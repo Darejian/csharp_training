@@ -13,10 +13,10 @@ namespace WebAddressbookTests
             driver.FindElement(By.XPath("//a[@href='edit.php']")).Click();
         }
 
-        public void Create(ContactData defaultContact)
+        public void Create(ContactData contact)
         {
             InitContactCreation();
-            FillContactForm(defaultContact);
+            FillContactForm(contact);
             SubmitContactCreation();
         }
 
@@ -28,10 +28,10 @@ namespace WebAddressbookTests
             ConfirmRemovealPopUp();
         }
 
-        public void Modify(string contactId, ContactData modifiedContact)
+        public void Modify(int contactIndex, ContactData modifiedContact)
         {
             manager.Navigator.GoToHomePage();
-            InitContactModification(contactId);
+            InitContactModification(contactIndex);
             FillContactForm(modifiedContact);
             SubmitContactModification();
         }
@@ -117,20 +117,13 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper InitContactModification(string contactId)
+        public ContactHelper InitContactModification(int contactIndex)
         {
-            try
-            {
-                driver.FindElement
-                    (By.CssSelector("tr[name='entry']>td[class='center']>a[href='edit.php?id=" + contactId + "']"))
+            string index = (1 + contactIndex).ToString();
+
+            driver.FindElement
+                    (By.CssSelector("tr:nth-child(" + index + ") > .center:nth-child(8) a"))
                     .Click();
-            }
-            catch (NoSuchElementException)
-            { //if contact with specified ID is not found, then the top contact in the table will be modified
-                driver.FindElement
-                    (By.CssSelector("tr:nth-child(2) > .center:nth-child(8) a"))
-                    .Click();
-            }
 
             return this;
         }
