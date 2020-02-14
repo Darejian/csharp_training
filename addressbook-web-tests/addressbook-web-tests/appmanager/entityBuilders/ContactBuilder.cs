@@ -7,7 +7,7 @@
 
         public ContactBuilder(ApplicationManager manager)
         {
-            this.contactFixtureBuilder = new ContactFixtureBuilder();
+            this.contactFixtureBuilder = ContactFixtureBuilder.CreateNew(); 
             this.manager = manager;
         }
 

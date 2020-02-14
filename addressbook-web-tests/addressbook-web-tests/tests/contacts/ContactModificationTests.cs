@@ -9,7 +9,7 @@ namespace WebAddressbookTests
         public void ContactModifyAllFields()
         {
             int contactIndex = 1;
-            var newContactDataModel = new ContactFixtureBuilder().Build();
+            var newContactDataModel = ContactFixtureBuilder.CreateNew().Build(); 
             app.Contact.Modify(contactIndex, newContactDataModel);
         }
     }

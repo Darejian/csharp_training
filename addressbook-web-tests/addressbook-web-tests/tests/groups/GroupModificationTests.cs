@@ -9,7 +9,7 @@ namespace WebAddressbookTests
         public void GroupModificationTest()
         {
             string groupId = "1";
-            var newGroupDataModel = new GroupFixtureBuilder().Build();      
+            var newGroupDataModel = GroupFixtureBuilder.CreateNew().Build();       
             app.Group.Modify(groupId, newGroupDataModel);
         }
     }

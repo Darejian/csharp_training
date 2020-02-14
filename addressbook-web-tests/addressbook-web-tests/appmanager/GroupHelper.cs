@@ -12,6 +12,7 @@ namespace WebAddressbookTests
             InitGroupCreation();
             FillGroupForm(group);
             SubmitGroupCreation();
+
             return this;
         }
 
@@ -20,6 +21,7 @@ namespace WebAddressbookTests
             manager.Navigator.GoToGroupsPage();
             SelectGroup(groupId);
             DeleteGroup();
+
             return this;
         }
 
@@ -30,6 +32,7 @@ namespace WebAddressbookTests
             InitGroupModification();
             FillGroupForm(newData);
             SubmitGroupModification();
+
             return this;
         }
 
@@ -45,6 +48,7 @@ namespace WebAddressbookTests
             ClearAndFillTextField("group_name", group.Name);
             ClearAndFillTextField("group_header", group.Header);
             ClearAndFillTextField("group_footer", group.Footer);
+
             return this;
         }
 

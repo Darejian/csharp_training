@@ -58,10 +58,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="builders\ContactBuilder.cs" />
-    <Compile Include="builders\GroupBuilder.cs" />
-    <Compile Include="fixtureBuilders\ContactFixtureBuilder.cs" />
-    <Compile Include="fixtureBuilders\GroupFixtureBuilder.cs" />
+    <Compile Include="appmanager\entityBuilders\ContactBuilder.cs" />
+    <Compile Include="appmanager\entityBuilders\GroupBuilder.cs" />
+    <Compile Include="models\ContactFixtures.cs" />
+    <Compile Include="models\fixtureBuilders\ContactFixtureBuilder.cs" />
+    <Compile Include="models\fixtureBuilders\GroupFixtureBuilder.cs" />
+    <Compile Include="models\Fixtures.cs" />
+    <Compile Include="models\GroupFixtures.cs" />
     <Compile Include="tests\contacts\ContactModificationTests.cs" />
     <Compile Include="tests\contacts\ContactRemovalTests.cs" />
     <Compile Include="tests\groups\GroupModificationTests.cs" />

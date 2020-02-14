@@ -8,9 +8,20 @@ namespace WebAddressbookTests
     {
         private readonly ContactData contactModel;
 
-        public ContactFixtureBuilder()
+        private ContactFixtureBuilder()
         {
             this.contactModel = CreateDefaultModel();
+        }
+
+        public static ContactFixtureBuilder CreateNew()
+        {
+            return new ContactFixtureBuilder();
+        }
+
+        private string CreatePathToAvatar(string dirName, string photoName)
+        {
+            string pathToFile = Path.Combine(TestContext.CurrentContext.TestDirectory, $"{dirName}\\", photoName);
+            return pathToFile;
         }
 
         public ContactFixtureBuilder WithFirstName(string firstName)
@@ -39,10 +50,9 @@ namespace WebAddressbookTests
 
         public ContactFixtureBuilder WithPhotoName(string photoName)
         {
-            string dirName = @"TestImages\";
-            string pathToFile = Path.Combine(TestContext.CurrentContext.TestDirectory, dirName, photoName);
-
+            string pathToFile = CreatePathToAvatar("TestImages", "testAvatar.png");
             this.contactModel.PhotoPath = pathToFile;
+
             return this;
         }
 
@@ -178,9 +188,7 @@ namespace WebAddressbookTests
 
         private ContactData CreateDefaultModel()
         {
-            string fileName = "testAvatar.png";
-            string dirName = @"TestImages\";
-            string pathToFile = Path.Combine(TestContext.CurrentContext.TestDirectory, dirName, fileName);
+            string pathToFile = CreatePathToAvatar("TestImages", "testAvatar.png");
 
             var model = new Faker<ContactData>()
                 .RuleFor(o => o.FirstName, f => f.Person.FirstName)
@@ -209,7 +217,9 @@ namespace WebAddressbookTests
                 .RuleFor(o => o.SecondaryAddress, f => f.Address.StreetAddress())
                 .RuleFor(o => o.SecondaryHome, f => f.Phone.PhoneNumber("+##########"))
                 .RuleFor(o => o.SecondaryNotes, f => f.Lorem.Sentence())
-                .Generate(); return model;
+                .Generate(); 
+            
+            return model;
         }
     }
 }

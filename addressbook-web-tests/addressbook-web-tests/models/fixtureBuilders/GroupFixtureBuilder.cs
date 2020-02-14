@@ -6,10 +6,16 @@ namespace WebAddressbookTests
     {
         private readonly GroupData groupModel;
         
-        public GroupFixtureBuilder()
+        private GroupFixtureBuilder()
         {
             this.groupModel = CreateDefaultModel();
         }
+
+        public static GroupFixtureBuilder CreateNew()
+        {
+            return new GroupFixtureBuilder();
+        }
+
         public GroupFixtureBuilder WithName(string name)
         {
             this.groupModel.Name = name;
@@ -39,7 +45,9 @@ namespace WebAddressbookTests
               .RuleFor(o => o.Name, f => f. Lorem.Word())
               .RuleFor(o => o.Header, f => f.Company.CompanyName())
               .RuleFor(o => o.Footer, f => f.Company.CatchPhrase())
-              .Generate(); return model;
+              .Generate(); 
+            
+            return model;
         }
     }
 }

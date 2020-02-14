@@ -7,7 +7,7 @@
 
         public GroupBuilder(ApplicationManager manager)
         {
-            this.groupFixtureBuilder = new GroupFixtureBuilder();
+            this.groupFixtureBuilder = GroupFixtureBuilder.CreateNew(); 
             this.manager = manager;
         }
 
